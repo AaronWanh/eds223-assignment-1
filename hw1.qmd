@@ -1,7 +1,25 @@
+---
+title: "Homework Assignment 1: Mapping Environmental Injustices"
+author: Aaron Wang
+date: 10-10-2026
+format:
+  pdf:
+    code-fold: false
+
+execute:
+  warning: false
+  message: false
+---
+
+## Import Data / Load Packages
 ```{r}
 library(tidyverse)
 library(sf)
 library(here)
+
+# install packages to map the data
+# install.packages("stars")
+# install.packages("tmap")
 
 # read in geodatabase of EJScreen data at the Census Block Group level
 ejscreen <- sf::st_read(here::here("data", "ejscreen","EJSCREEN_2023_BG_StatePct_with_AS_CNMI_GU_VI.gdb")) 
@@ -18,20 +36,19 @@ san_bernardino <- ejscreen %>%
 california_counties <- aggregate(california, by = list(california$CNTY_NAME), FUN = mean)
 ```
 
-P_CANCER
-Percentile for Air toxics cancer risk
-
+## Visualize Data
 ```{r}
-install.packages("stars")
-install.packages("tmap")
-```
+#| fig-width: 10
+#| fig-height: 7
+#| out-width: "100%"
+#| fig-align: center
 
-```{r}
 library(sf)
 library(stars)
 library(tmap)
 library(here)
 
+# map the low income proportion in the scale of San Bernardino county
 tm_shape(san_bernardino) + 
   tm_polygons('LOWINCPCT',
               fill.legend = tm_legend(title = 'Proportion of Low Income Residents'),
@@ -39,20 +56,57 @@ tm_shape(san_bernardino) +
   ) +
   tm_title('Low Income Population in San Bernardino County') +
   tm_compass(position = c('top', 'right')) +
-  tm_scalebar()
+  tm_scalebar(
+    position = c('bottom', 'right'),
+    size = 1
+  ) +
+  tm_layout(
+    frame = FALSE,
+    title.size = 1.1,
+    legend.text.size = 0.7,
+    legend.title.size = 0.8
+  )
 ```
 
-P_LIFEEXPPCT
-Percentile for Low Life Expectancy
 
 ```{r}
+#| fig-width: 10
+#| fig-height: 7
+#| out-width: "100%"
+#| fig-align: center
+
+# map the PM2.5 in the scale of San Bernardino county
 tm_shape(san_bernardino) +
-  tm_polygons('PTSDF',
-              fill.legend = tm_legend(title = 'Hazard Waste Proximity (National Percentile Rank)'),
+  tm_polygons('PM25', #PTSDF
+              fill.legend = tm_legend(title = 'Annual Average PM2.5 Concentration (µg/m³)'),
               fill.scale = tm_scale(values = 'YlOrRd')
   
   ) +
-  tm_title('Hazard Waste Proximity in San Bernardino County') +
+  tm_title('PM2.5 in San Bernardino County') +
   tm_compass(position = c('top', 'right')) +
-  tm_scalebar()
+  tm_scalebar(
+    position = c('bottom', 'right'),
+    size = 1
+  ) +
+  tm_layout(
+    frame = FALSE,
+    title.size = 1.1,
+    legend.text.size = 0.7,
+    legend.title.size = 0.8
+  )
 ```
+
+
+## Map Interpretation
+
+The PM2.5 map shows that air pollution is generally higher in the southwest part of the county where it is densely populated thus showing that more transportation and urban activities are apparent. In constrast the low income map demonstrates that the distribution of the proportion of low income residents are more spread out across the county. In the southwest region, there are both relatively high PM2.5 concentrations and low income residents which indicates that there is potential environmental injustice. Despite this, the relationship between the two factors is inconsistent throughout the entirety of San Bernardino county. In the western and eastern parts of the map, there are more rural communities which contributes to the higher proportion of low income residents who are not necessarily experiencing higher concentrations of PM2.5.
+
+## Data Citation
+
+| Data | Citation | Link |
+|:---|:---|:---|
+| PM2.5 | U.S. EPA. 2023. EJScreen Version 2.2. | [EPA EJScreen](https://pedp-ejscreen.azurewebsites.net/) |
+| Low Income | U.S. EPA. 2023. EJScreen Version 2.2. | [EPA EJScreen](https://pedp-ejscreen.azurewebsites.net/) |
+
+Data sources used in the San Bernardino County environmental justice analysis. The original website no longer exists but the link provided is an alternative.  
+

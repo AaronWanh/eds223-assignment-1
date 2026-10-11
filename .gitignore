@@ -49,5 +49,7 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
-# Ignore data folder 
+# Ignore data folder
 data/
+/.quarto/
+**/*.quarto_ipynb
