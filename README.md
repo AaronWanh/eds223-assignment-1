@@ -1,6 +1,6 @@
 # Homework Assignment 1
 
-In this assignment, we explored various types of environmental injustices by using the EJScreen tool and importing the dataset into our folder. We specifically looked at the relationship between the proportion of low income residents and hazard waste proximity in San Bernardino county. In order to determine if there is a correlation, we graphed the two factors to analysis the environmental injustice associated with people with low income and their susceptibility to a greater extent of toxic waste exposure. 
+In this assignment, we explored various types of environmental injustices by using the EJScreen tool and importing the dataset into our folder. We specifically looked at the relationship between the proportion of low income residents and particulate matter (2.5) concentration in San Bernardino county. In order to determine if there is a correlation, we graphed the two factors to analysis the environmental injustice associated with people with low income and their susceptibility to a higher air pollution.
 
 ## Inside the Repo:
 
